@@ -1,0 +1,111 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Consumer Registration</title>
+    <script>
+      function toggleFields() {
+        var consumerType = document.getElementById("consumer_type").value;
+        document.getElementById("businessFields").style.display =
+          consumerType === "business" ? "block" : "none";
+        document.getElementById("industryFields").style.display =
+          consumerType === "industry" ? "block" : "none";
+      }
+    </script>
+  </head>
+  <body>
+    <h2>Consumer Registration Form</h2>
+
+    <form action="/register" method="POST">
+      <!-- New NIC Field -->
+      <label for="NIC">NIC:</label>
+      <input type="text" id="NIC" name="NIC" required /> <br /><br />
+
+      <!-- New Phone Number Field -->
+      <label for="phone_no">Phone Number:</label>
+      <input type="text" id="phone_no" name="phone_no" required /> <br /><br />
+
+      <!-- Existing Fields -->
+      <label for="email">Email:</label>
+      <input type="email" id="email" name="email" required /> <br /><br />
+
+      <label for="fname">First Name:</label>
+      <input type="text" id="fname" name="fname" required /> <br /><br />
+
+      <label for="lname">Last Name:</label>
+      <input type="text" id="lname" name="lname" required /> <br /><br />
+
+      <label for="username">Username:</label>
+      <input type="text" id="username" name="username" required /> <br /><br />
+
+      <label for="password">Password:</label>
+      <input type="password" id="password" name="password" required />
+      <br /><br />
+
+      <label for="consumer_type">Consumer Type:</label>
+      <select
+        id="consumer_type"
+        name="consumer_type"
+        required
+        onchange="toggleFields()"
+      >
+        <option value="household">Household</option>
+        <option value="business">Business</option>
+        <option value="industry">Industry</option>
+      </select>
+      <br /><br />
+
+      <!-- Business Fields -->
+      <div id="businessFields" style="display: none">
+        <label for="enterprise_name">Enterprise Name:</label>
+        <input type="text" id="enterprise_name" name="enterprise_name" />
+        <br /><br />
+
+        <label for="enterprise_type">Enterprise Type:</label>
+        <input type="text" id="enterprise_type" name="enterprise_type" />
+        <br /><br />
+
+        <label for="enterprise_email">Enterprise Email:</label>
+        <input type="email" id="enterprise_email" name="enterprise_email" />
+        <br /><br />
+
+        <label for="enterprise_contact_number"
+          >Enterprise Contact Number:</label
+        >
+        <input
+          type="text"
+          id="enterprise_contact_number"
+          name="enterprise_contact_number"
+        />
+        <br /><br />
+      </div>
+
+      <!-- Industry Fields -->
+      <div id="industryFields" style="display: none">
+        <label for="industry_name">Industry Name:</label>
+        <input type="text" id="industry_name" name="industry_name" />
+        <br /><br />
+
+        <label for="industry_type">Industry Type:</label>
+        <input type="text" id="industry_type" name="industry_type" />
+        <br /><br />
+      </div>
+
+      <!-- Address Fields -->
+      <label for="street_line1">Street Line 1:</label>
+      <input type="text" id="street_line1" name="street_line1" required />
+      <br /><br />
+
+      <label for="street_line2">Street Line 2:</label>
+      <input type="text" id="street_line2" name="street_line2" />
+      <br /><br />
+
+      <label for="city">City:</label>
+      <input type="text" id="city" name="city" required />
+      <br /><br />
+
+      <button type="submit">Register</button>
+    </form>
+  </body>
+</html>

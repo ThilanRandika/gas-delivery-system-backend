@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <title>Welcome Page</title>
+    <style>
+      body {
+        font-family: Arial, sans-serif;
+        background-color: #f2f2f2;
+        text-align: center;
+        margin-top: 50px;
+      }
+
+      h1 {
+        font-size: 36px;
+        color: #333;
+      }
+
+      .welcome-message {
+        font-size: 20px;
+        color: #555;
+        margin-bottom: 30px;
+      }
+
+      button {
+        padding: 15px 30px;
+        margin: 10px;
+        font-size: 18px;
+        cursor: pointer;
+        border: none;
+        border-radius: 5px;
+        background-color: #4caf50;
+        color: white;
+        transition: background-color 0.3s ease;
+      }
+
+      button:hover {
+        background-color: #45a049;
+      }
+
+      .container {
+        text-align: center;
+        padding: 50px;
+      }
+    </style>
+  </head>
+  <body>
+    <div class="container">
+      <h1>Welcome to Our Website</h1>
+      <p class="welcome-message">Please choose an action to get started:</p>
+
+      <button onclick="window.location.href='/register'">Register</button>
+      <button onclick="window.location.href='/login'">Login</button>
+      <button onclick="window.location.href='/register_outlet'">
+        Outlet Register
+      </button>
+      <button onclick="window.location.href='/outlet_login'">
+        Outlet Login
+      </button>
+      <!-- Updated route -->
+    </div>
+  </body>
+</html>

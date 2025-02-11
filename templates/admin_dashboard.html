@@ -1,0 +1,176 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Admin Dashboard</title>
+    <style>
+      body {
+        font-family: Arial, sans-serif;
+        background-color: #f4f4f4;
+        display: flex;
+        justify-content: center;
+        align-items: flex-start;
+        flex-direction: column;
+        padding: 20px;
+        height: 100vh;
+      }
+
+      h1 {
+        text-align: center;
+        margin-bottom: 20px;
+      }
+
+      table {
+        width: 100%;
+        border-collapse: collapse;
+        margin-bottom: 40px;
+      }
+
+      th,
+      td {
+        padding: 12px 15px;
+        text-align: left;
+        border: 1px solid #ddd;
+      }
+
+      th {
+        background-color: #f2f2f2;
+      }
+
+      tr:nth-child(even) {
+        background-color: #f9f9f9;
+      }
+
+      .form-container {
+        background: white;
+        padding: 20px;
+        border-radius: 8px;
+        box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+        width: 100%;
+        max-width: 500px;
+        margin: auto;
+      }
+
+      h2 {
+        text-align: center;
+        margin-bottom: 15px;
+      }
+
+      label {
+        font-weight: bold;
+        display: block;
+        margin-top: 10px;
+      }
+
+      input,
+      select {
+        width: 100%;
+        padding: 10px;
+        margin-top: 5px;
+        border: 1px solid #ccc;
+        border-radius: 5px;
+      }
+
+      button {
+        width: 100%;
+        padding: 12px;
+        background: #007bff;
+        color: white;
+        border: none;
+        border-radius: 5px;
+        cursor: pointer;
+        margin-top: 15px;
+      }
+
+      button:hover {
+        background: #0056b3;
+      }
+
+      .update-status-button {
+        padding: 6px 12px;
+        background-color: #28a745;
+        color: white;
+        border: none;
+        border-radius: 5px;
+        cursor: pointer;
+      }
+
+      .update-status-button:hover {
+        background-color: #218838;
+      }
+
+      .error-message {
+        color: red;
+        font-size: 0.9em;
+        margin-top: 10px;
+        text-align: center;
+      }
+    </style>
+  </head>
+  <body>
+    <h1>Admin Dashboard</h1>
+
+    <!-- Delivery Records Table -->
+    <h2>Delivery Records</h2>
+    <table>
+      <thead>
+        <tr>
+          <th>Delivery ID</th>
+          <th>Status</th>
+          <th>Stock ID</th>
+          <th>Outlet ID</th>
+          <th>Actions</th>
+        </tr>
+      </thead>
+      <tbody>
+        {% for delivery in deliveries %}
+        <tr>
+          <td>{{ delivery.Delivery_ID }}</td>
+          <td>{{ delivery.Status }}</td>
+          <td>{{ delivery.stock_ID }}</td>
+          <td>{{ delivery.outlet_ID }}</td>
+          <td>
+            <!-- Edit Status Dropdown Form -->
+            <form action="{{ url_for('admin_dashboard') }}" method="POST" style="display: inline;">
+              <input type="hidden" name="id" value="{{ delivery.Delivery_ID }}">
+              <select name="status" required>
+                <option value="Pending" {% if delivery.Status == 'Pending' %}selected{% endif %}>Pending</option>
+                <option value="Approved" {% if delivery.Status == 'Approved' %}selected{% endif %}>Approved</option>
+                <option value="In Progress" {% if delivery.Status == 'In Progress' %}selected{% endif %}>In Progress</option>
+                <option value="Delivered" {% if delivery.Status == 'Delivered' %}selected{% endif %}>Delivered</option>
+              </select>
+              <button type="submit" class="update-status-button">Update Status</button>
+            </form>
+          </td>
+        </tr>
+        {% endfor %}
+      </tbody>
+    </table>
+
+    <!-- Update Gas Stock Form -->
+    <div class="form-container">
+      <h2>Update Gas Stock</h2>
+      <form action="{{ url_for('insert_stock') }}" method="POST">
+        <label for="quantity">Quantity:</label>
+        <input type="number" id="quantity" name="quantity" required min="1" />
+
+        <label for="status">Status:</label>
+        <select id="status" name="status" required>
+          <option value="Available">Available</option>
+          <option value="Low Stock">Low Stock</option>
+          <option value="Out of Stock">Out of Stock</option>
+        </select>
+
+        <label for="date">Date:</label>
+        <input type="datetime-local" id="date" name="date" required />
+
+        <button type="submit">Update Stock</button>
+      </form>
+
+      {% if error_message %}
+      <div class="error-message">{{ error_message }}</div>
+      {% endif %}
+    </div>
+  </body>
+</html>

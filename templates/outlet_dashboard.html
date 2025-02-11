@@ -1,0 +1,284 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Outlet Dashboard</title>
+    <style>
+      body {
+        font-family: Arial, sans-serif;
+        background-color: #f9f9f9;
+        padding: 2rem;
+      }
+
+      .container {
+        max-width: 800px;
+        margin: 0 auto;
+      }
+
+      h2 {
+        text-align: center;
+        margin-bottom: 2rem;
+      }
+
+      .stock-table {
+        width: 100%;
+        border-collapse: collapse;
+        margin-top: 2rem;
+      }
+
+      .stock-table th,
+      .stock-table td {
+        padding: 12px;
+        border: 1px solid #ddd;
+        text-align: center;
+      }
+
+      .stock-table th {
+        background-color: #f2f2f2;
+      }
+
+      .logout-link {
+        display: block;
+        text-align: center;
+        margin-top: 20px;
+      }
+
+      #deliveryButton {
+        display: block;
+        margin: 20px auto;
+        padding: 10px 20px;
+        background-color: #007bff;
+        color: white;
+        border: none;
+        cursor: pointer;
+        font-size: 16px;
+      }
+
+      #deliveryButton:hover {
+        background-color: #0056b3;
+      }
+
+      #deliveryFormPopup {
+        display: none;
+        position: fixed;
+        bottom: 0;
+        width: 100%;
+        background-color: white;
+        padding: 20px;
+        box-shadow: 0 -2px 5px rgba(0, 0, 0, 0.1);
+      }
+
+      #deliveryFormPopup form {
+        display: flex;
+        flex-direction: column;
+        align-items: flex-start;
+      }
+
+      #deliveryFormPopup input {
+        margin-bottom: 10px;
+        padding: 8px;
+        width: 100%;
+        max-width: 300px;
+      }
+
+      #deliveryFormPopup button {
+        background-color: #d9534f;
+        color: white;
+        padding: 10px;
+        border: none;
+        cursor: pointer;
+      }
+
+      #deliveryFormPopup button:hover {
+        background-color: #c9302c;
+      }
+
+      .alert {
+        padding: 10px;
+        margin-bottom: 15px;
+        border-radius: 5px;
+        text-align: center;
+        font-weight: bold;
+      }
+
+      .alert.success {
+        background-color: #d4edda;
+        color: #155724;
+      }
+
+      .alert.error {
+        background-color: #f8d7da;
+        color: #721c24;
+      }
+
+      .form-container {
+        max-width: 1000px;
+        margin: 2rem auto;
+        padding: 2rem;
+        background-color: white;
+        border-radius: 8px;
+        box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+      }
+
+      .form-container h2 {
+        text-align: center;
+        margin-bottom: 1.5rem;
+      }
+
+      .form-container input[type="text"],
+      .form-container input[type="number"],
+      .form-container input[type="file"] {
+        width: 100%;
+        padding: 10px;
+        margin-bottom: 1rem;
+        border: 1px solid #ddd;
+        border-radius: 4px;
+      }
+
+      .form-container input[type="submit"] {
+        padding: 12px 20px;
+        background-color: #007bff;
+        color: white;
+        border: none;
+        border-radius: 4px;
+        cursor: pointer;
+        width: 100%;
+        font-size: 16px;
+      }
+
+      .form-container input[type="submit"]:hover {
+        background-color: #0056b3;
+      }
+    </style>
+  </head>
+  <body>
+    <div class="container">
+      <h2>Welcome {{ outlet_name }}'s Dashboard</h2>
+
+      <!-- Display success or error messages -->
+      {% if success_message %}
+      <div class="alert success">
+        <p>{{ success_message }}</p>
+      </div>
+      {% endif %} {% if error_message %}
+      <div class="alert error">
+        <p>{{ error_message }}</p>
+      </div>
+      {% endif %}
+
+      <h3>Gas Stock Information</h3>
+      <table class="stock-table">
+        <thead>
+          <tr>
+            <th>Stock ID</th>
+            <th>Quantity</th>
+            <th>Status</th>
+            <th>Date</th>
+          </tr>
+        </thead>
+        <tbody>
+          {% for stock in gas_stock_data %}
+          <tr>
+            <td>{{ stock[0] }}</td>
+            <td>{{ stock[1] }}</td>
+            <td>{{ stock[2] }}</td>
+            <td>{{ stock[3] }}</td>
+          </tr>
+          {% endfor %}
+        </tbody>
+      </table>
+
+      <a href="{{ url_for('logout') }}" class="logout-link">Logout</a>
+    </div>
+
+    <!-- Add Delivery Button -->
+    <button id="deliveryButton" onclick="openDeliveryForm()">
+      Add Delivery
+    </button>
+
+    <!-- Pop-up Delivery Form -->
+    <div id="deliveryFormPopup">
+      <form
+        id="deliveryForm"
+        action="{{ url_for('add_delivery') }}"
+        method="POST"
+      >
+        <label for="stock_ID">Stock ID:</label>
+        <input type="number" id="stock_ID" name="stock_ID" required />
+        <input type="submit" value="Add Delivery" />
+      </form>
+      <button onclick="closeDeliveryForm()">Close</button>
+    </div>
+
+    <script>
+      // Function to open the delivery form
+      function openDeliveryForm() {
+        document.getElementById("deliveryFormPopup").style.display = "block";
+      }
+
+      // Function to close the delivery form
+      function closeDeliveryForm() {
+        document.getElementById("deliveryFormPopup").style.display = "none";
+      }
+    </script>
+
+    <h3>Delivery Records</h3>
+    <table class="stock-table">
+      <thead>
+        <tr>
+          <th>Delivery ID</th>
+          <th>Status</th>
+          <th>Stock ID</th>
+          <th>Outlet ID</th>
+        </tr>
+      </thead>
+      <tbody>
+        {% for delivery in deliveries %}
+        <tr>
+          <td>{{ delivery[0] }}</td>
+          <td>{{ delivery[1] }}</td>
+          <td>{{ delivery[2] }}</td>
+          <td>{{ delivery[3] }}</td>
+        </tr>
+        {% endfor %}
+      </tbody>
+    </table>
+
+    <div class="form-container">
+      <h2>Submit Product Information</h2>
+
+      <form action="/upload" method="post" enctype="multipart/form-data">
+        <div class="mb-4">
+          <label for="title" class="block text-gray-700">Title:</label>
+          <input type="text" id="title" name="title" required />
+        </div>
+
+        <div class="mb-4">
+          <label for="product_Name" class="block text-gray-700"
+            >Product Name:</label
+          >
+          <input type="text" id="product_Name" name="product_Name" required />
+        </div>
+
+        <div class="mb-4">
+          <label for="price" class="block text-gray-700">Price:</label>
+          <input type="number" id="price" name="price" step="0.01" required />
+        </div>
+
+        <div class="mb-4">
+          <label for="image" class="block text-gray-700">Product Image:</label>
+          <input type="file" id="image" name="image" accept="image/*" />
+        </div>
+
+        <div class="mb-4 text-center">
+          <input
+            type="submit"
+            value="Submit"
+            class="bg-blue-500 text-white py-2 px-4 rounded-md cursor-pointer hover:bg-blue-600"
+          />
+        </div>
+      </form>
+    </div>
+  </body>
+</html>

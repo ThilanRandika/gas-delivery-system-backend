@@ -1,0 +1,156 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Gas Cylinder Products</title>
+    <style>
+      * {
+        margin: 0;
+        padding: 0;
+        box-sizing: border-box;
+        font-family: Arial, sans-serif;
+      }
+
+      body {
+        background-color: #f9f9f9;
+        padding: 2rem;
+      }
+
+      .container {
+        display: flex;
+        flex-direction: column;
+        gap: 1.5rem;
+        max-width: 800px;
+        margin: 0 auto;
+      }
+
+      .card {
+        display: flex;
+        align-items: center;
+        background: white;
+        border: 1px solid #ddd;
+        border-radius: 8px;
+        padding: 1rem;
+        box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+      }
+
+      .card img {
+        width: 80px;
+        height: auto;
+        border-radius: 4px;
+        margin-right: 1.5rem;
+      }
+
+      .card-content {
+        flex-grow: 1;
+      }
+
+      .card-title {
+        font-size: 1.2rem;
+        font-weight: bold;
+        margin-bottom: 0.5rem;
+      }
+
+      .card-weight {
+        color: #555;
+        margin-bottom: 0.5rem;
+      }
+
+      .card-price {
+        font-size: 1.1rem;
+        font-weight: bold;
+        color: #007bff;
+      }
+
+      .purchase-button {
+        background-color: #007bff;
+        color: white;
+        padding: 0.5rem 1rem;
+        border: none;
+        border-radius: 4px;
+        cursor: pointer;
+        transition: background-color 0.3s;
+      }
+
+      .purchase-button:hover {
+        background-color: #0056b3;
+      }
+    </style>
+  </head>
+  <body>
+    <div class="container">
+      <div class="card">
+        <img
+          src="https://via.placeholder.com/80x120"
+          alt="2.3 Kg Gas Cylinder"
+        />
+        <div class="card-content">
+          <div class="card-title">GasByGas</div>
+          <div class="card-weight">2.3 Kg Gas Cylinder</div>
+          <div class="card-price">LKR 694</div>
+        </div>
+        <button
+          class="purchase-button"
+          onclick="window.location.href='/select_quantity?gas_type=2.3 Kg Gas Cylinder'"
+        >
+          Purchase Order
+        </button>
+      </div>
+
+      <div class="card">
+        <img
+          src="https://via.placeholder.com/80x120"
+          alt="05 Kg Gas Cylinder"
+        />
+        <div class="card-content">
+          <div class="card-title">GasByGas</div>
+          <div class="card-weight">05 Kg Gas Cylinder</div>
+          <div class="card-price">LKR 1482</div>
+        </div>
+        <button
+          class="purchase-button"
+          onclick="window.location.href='/select_quantity?gas_type=05 Kg Gas Cylinder'"
+        >
+          Purchase Order
+        </button>
+      </div>
+
+      <div class="card">
+        <img
+          src="https://via.placeholder.com/80x120"
+          alt="12 Kg Gas Cylinder"
+        />
+        <div class="card-content">
+          <div class="card-title">GasByGas</div>
+          <div class="card-weight">12 Kg Gas Cylinder</div>
+          <div class="card-price">LKR 3690</div>
+        </div>
+        <button
+          class="purchase-button"
+          onclick="window.location.href='/select_quantity?gas_type=12 Kg Gas Cylinder'"
+        >
+          Purchase Order
+        </button>
+      </div>
+
+      <div class="card">
+        <img
+          src="https://via.placeholder.com/80x120"
+          alt="37.5 Kg Gas Cylinder"
+        />
+        <div class="card-content">
+          <div class="card-title">GasByGas</div>
+          <div class="card-weight">37.5 Kg Gas Cylinder</div>
+          <div class="card-price">LKR 14500</div>
+        </div>
+        <button
+          class="purchase-button"
+          onclick="window.location.href='/select_quantity?gas_type=37.5 Kg Gas Cylinder'"
+        >
+          Purchase Order
+        </button>
+      </div>
+    </div>
+  </body>
+</html>
